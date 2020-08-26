@@ -11,14 +11,12 @@ import net.fabricmc.api.Environment;
 public interface FallFlyingAbility {
     /**
      * Allows the player to start fall flying.
-     *
      * @return true if the player has fall flying capabilities.
      */
     boolean allowFallFlying();
 
     /**
      * Hides the Elytra, if the player is wearing one.
-     *
      * @return true if the Elytra should not be shown.
      */
     @Environment(EnvType.CLIENT)

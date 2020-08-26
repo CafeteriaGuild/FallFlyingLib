@@ -14,7 +14,6 @@ import java.util.function.Function;
 public final class FallFlyingLib {
     /**
      * Registers a way to access a {@link FallFlyingAbility}.
-     *
      * @param accessor the accessor, might be a lambda.
      */
     public static void registerAccessor(Function<LivingEntity, FallFlyingAbility> accessor) {
