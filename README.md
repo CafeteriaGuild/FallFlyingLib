@@ -16,14 +16,14 @@ You can add the library by inserting the following in your `build.gradle` :
 ```gradle
 repositories {
     maven {
-        name = "Jitpack"
-        url = "https://jitpack.io"
+        name = "AdrianTodt's Maven"
+        url = "https://dl.bintray.com/adriantodt/maven"
     }
 }
 
 dependencies {
-    modImplementation "com.github.adriantodt:FallFlyingLib:${ffl_version}"
-    include "com.github.adriantodt:FallFlyingLib:${ffl_version}"
+    modImplementation "net.adriantodt.fabricmc:FallFlyingLib:${ffl_version}"
+    include "net.adriantodt.fabricmc:FallFlyingLib:${ffl_version}"
 }
 ```
 

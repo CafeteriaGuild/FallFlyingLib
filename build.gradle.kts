@@ -1,8 +1,10 @@
+import com.jfrog.bintray.gradle.BintrayExtension.PackageConfig
 import java.text.MessageFormat.format as messageFormat
 
 plugins {
     id("fabric-loom") version "0.4-SNAPSHOT"
     id("maven-publish")
+    id("com.jfrog.bintray") version "1.8.5"
 }
 
 java {
@@ -47,7 +49,7 @@ tasks.withType<JavaCompile> {
 // if it is present.
 // If you remove this task, sources will not be generated.
 val sourcesJar by tasks.creating(Jar::class) {
-    dependsOn(tasks.classes)
+    archiveClassifier.set("sources")
     from(sourceSets["main"].allSource)
 }
 
@@ -60,7 +62,7 @@ publishing {
     publications {
         create("mavenJava", MavenPublication::class.java) {
             // add all the jars that should be included when publishing to maven
-            artifact(tasks.remapJar) {
+            artifact(tasks.remapJar.get()) {
                 builtBy(tasks.remapJar)
             }
             artifact(sourcesJar) {
@@ -88,4 +90,21 @@ tasks.create("printInfo") {
             project.property("fabric_version")
         ))
     }
+}
+
+fun findProperty(s: String) = project.findProperty(s) as String?
+bintray {
+    user = findProperty("bintrayUsername")
+    key = findProperty("bintrayApiKey")
+    publish = true
+    setPublications("mavenJava")
+    pkg(delegateClosureOf<PackageConfig> {
+        repo = "maven"
+        name = findProperty("archives_base_name")
+        setLicenses("MIT")
+        vcsUrl = "https://github.com/adriantodt/FallFlyingLib.git"
+    })
+}
+tasks.bintrayUpload {
+    dependsOn("build", "publishToMavenLocal")
 }
