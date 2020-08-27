@@ -9,7 +9,7 @@ import java.util.function.Function;
  * FallFlyingLib's main class. Provides a method to register a accessor {@link FallFlyingAbility}.
  *
  * <p> The implementation of {@link FallFlyingAbility} is let to the user. It can be implemented as a
- * Entity Compontent from Cardinal Components API.
+ * Entity Component from Cardinal Components API.
  */
 public final class FallFlyingLib {
     /**

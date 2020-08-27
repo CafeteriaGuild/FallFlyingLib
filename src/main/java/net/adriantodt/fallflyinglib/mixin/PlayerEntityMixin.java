@@ -1,7 +1,6 @@
 package net.adriantodt.fallflyinglib.mixin;
 
 import net.adriantodt.fallflyinglib.impl.FallFlyingLibInternals;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -10,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntityMixin {
+public abstract class PlayerEntityMixin {
     @Shadow
     public abstract boolean checkFallFlying();
 
@@ -26,7 +25,7 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin {
         cancellable = true
     )
     public void checkFallFlying(CallbackInfoReturnable<Boolean> info) {
-        if (FallFlyingLibInternals.isFallFlyingAllowed((LivingEntity) (Object) this)) {
+        if (FallFlyingLibInternals.isFallFlyingAllowed((PlayerEntity) (Object) this)) {
             this.startFallFlying();
             info.setReturnValue(true);
         }
