@@ -16,9 +16,21 @@ public interface FallFlyingAbility {
     boolean allowFallFlying();
 
     /**
-     * Hides the Elytra, if the player is wearing one.
+     * Hides the cape, if the player is wearing one.
+     *
      * @return true if the Elytra should not be shown.
      */
     @Environment(EnvType.CLIENT)
-    boolean shouldHideElytra();
+    boolean shouldHideCape();
+
+    /**
+     * Deprecated, replaced by {@link FallFlyingAbility#shouldHideCape()}.
+     *
+     * @return by default, never returns.
+     */
+    @Deprecated
+    @Environment(EnvType.CLIENT)
+    default boolean shouldHideElytra() {
+        throw new UnsupportedOperationException();
+    }
 }

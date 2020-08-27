@@ -28,7 +28,7 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntityMixin {
         ),
         method = "tickMovement"
     )
-    public void tickMovement(CallbackInfo info) {
+    public void patchClientControls(CallbackInfo info) {
         ClientPlayerEntity thisObj = (ClientPlayerEntity) (Object) this;
         if (FallFlyingLibInternals.isFallFlyingAllowed(thisObj) && this.checkFallFlying()) {
             this.networkHandler.sendPacket(new ClientCommandC2SPacket(thisObj, ClientCommandC2SPacket.Mode.START_FALL_FLYING));

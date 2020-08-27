@@ -24,7 +24,7 @@ public abstract class PlayerEntityMixin {
         method = "checkFallFlying",
         cancellable = true
     )
-    public void checkFallFlying(CallbackInfoReturnable<Boolean> info) {
+    public void patchCheckFallFlying(CallbackInfoReturnable<Boolean> info) {
         if (FallFlyingLibInternals.isFallFlyingAllowed((PlayerEntity) (Object) this)) {
             this.startFallFlying();
             info.setReturnValue(true);

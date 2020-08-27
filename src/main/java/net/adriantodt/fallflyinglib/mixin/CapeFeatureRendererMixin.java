@@ -23,7 +23,8 @@ public abstract class CapeFeatureRendererMixin {
         method = "render",
         cancellable = true
     )
-    public void render(MatrixStack m, VertexConsumerProvider v, int i, AbstractClientPlayerEntity player, float f, float g, float h, float j, float k, float l, CallbackInfo info) {
-        if (FallFlyingLibInternals.shouldHideElytra(player)) info.cancel();
+    public void maybeHideCape(MatrixStack m, VertexConsumerProvider v, int i, AbstractClientPlayerEntity player,
+                              float f, float g, float h, float j, float k, float l, CallbackInfo info) {
+        if (FallFlyingLibInternals.shouldHideCape(player)) info.cancel();
     }
 }

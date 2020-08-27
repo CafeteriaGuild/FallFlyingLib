@@ -26,9 +26,9 @@ public class FallFlyingLibInternals {
     }
 
     @Environment(EnvType.CLIENT)
-    public static boolean shouldHideElytra(LivingEntity livingEntity) {
+    public static boolean shouldHideCape(LivingEntity livingEntity) {
         for (Function<LivingEntity, FallFlyingAbility> accessor : accessors) {
-            if (accessor.apply(livingEntity).shouldHideElytra()) {
+            if (accessor.apply(livingEntity).shouldHideCape()) {
                 return true;
             }
         }

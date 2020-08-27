@@ -14,7 +14,7 @@ public abstract class LivingEntityMixin {
             target = "Lnet/minecraft/entity/LivingEntity;setFlag(IZ)V"
         ), method = "initAi", index = 1
     )
-    private boolean injectAiFix(boolean value) {
+    private boolean patchInitAi(boolean value) {
         EntityAccessor accessor = (EntityAccessor) this;
         boolean bl = accessor.callGetFlag(7);
 
