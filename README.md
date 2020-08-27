@@ -1,6 +1,6 @@
 # FallFlyingLib
 
-[![](https://jitpack.io/v/adriantodt/FallFlyingLib.svg)](https://jitpack.io/#adriantodt/FallFlyingLib) - [Curseforge](https://www.curseforge.com/minecraft/mc-mods/fallflyinglib) 
+[![](https://jitpack.io/v/adriantodt/FallFlyingLib.svg)](https://jitpack.io/#adriantodt/FallFlyingLib) [![Curseforge](http://cf.way2muchnoise.eu/title/fallflyinglib.svg)](https://www.curseforge.com/minecraft/mc-mods/fallflyinglib) 
 
 A lightweight library to provide compatibility between mods that implement Elytra alternatives.
 
