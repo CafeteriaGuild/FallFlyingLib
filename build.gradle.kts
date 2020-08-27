@@ -83,8 +83,7 @@ tasks.create("printInfo") {
             ----- BEGIN -----
             ### Release Info
             This release was built for Minecraft **{0}**, with Fabric Loader **{1}** and Fabric API **{2}**
-            ------ END ------'''
-        """.trimIndent(),
+            ------ END ------""".trimIndent(),
             project.property("minecraft_version"),
             project.property("loader_version"),
             project.property("fabric_version")
