@@ -4,9 +4,9 @@
   "package": "net.adriantodt.fallflyinglib.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "EntityMixin",
-    "LivingEntityMixin",
-    "PlayerEntityMixin"
+      "EntityAccessor",
+      "LivingEntityMixin",
+      "PlayerEntityMixin"
   ],
   "client": [
     "CapeFeatureRendererMixin",

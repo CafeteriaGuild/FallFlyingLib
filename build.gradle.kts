@@ -1,4 +1,6 @@
 import com.jfrog.bintray.gradle.BintrayExtension.PackageConfig
+import net.fabricmc.loom.task.RemapJarTask
+import net.fabricmc.loom.task.RemapSourcesJarTask
 import java.text.MessageFormat.format as messageFormat
 
 plugins {
@@ -14,7 +16,7 @@ java {
 
 version = project.property("mod_version").toString()
 group = project.property("maven_group").toString()
-project.setProperty("archivesBaseName", project.property("archives_base_name"))
+base { archivesBaseName = project.property("archives_base_name").toString() }
 
 dependencies {
     //to change the versions see the gradle.properties file
@@ -45,6 +47,10 @@ tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
 
+
+val remapJar = tasks.getByName<RemapJarTask>("remapJar")
+val remapSourcesJar = tasks.getByName<RemapSourcesJarTask>("remapSourcesJar")
+
 // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 // if it is present.
 // If you remove this task, sources will not be generated.
@@ -61,12 +67,17 @@ tasks.jar {
 publishing {
     publications {
         create("mavenJava", MavenPublication::class.java) {
+
+            groupId = project.group.toString()
+            artifactId = project.name.toLowerCase()
+            version = project.version.toString()
+
             // add all the jars that should be included when publishing to maven
-            artifact(tasks.remapJar.get()) {
-                builtBy(tasks.remapJar)
+            artifact(remapJar) {
+                builtBy(remapJar)
             }
             artifact(sourcesJar) {
-                builtBy(tasks.remapSourcesJar)
+                builtBy(remapSourcesJar)
             }
         }
     }

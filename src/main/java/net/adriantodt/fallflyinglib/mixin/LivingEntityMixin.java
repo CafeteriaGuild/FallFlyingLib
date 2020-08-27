@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends EntityMixin {
+public abstract class LivingEntityMixin {
     @ModifyArg(
         at = @At(
             value = "INVOKE",
@@ -15,9 +15,10 @@ public abstract class LivingEntityMixin extends EntityMixin {
         ), method = "initAi", index = 1
     )
     private boolean injectAiFix(boolean value) {
-        boolean bl = this.getFlag(7);
+        EntityAccessor accessor = (EntityAccessor) this;
+        boolean bl = accessor.callGetFlag(7);
 
-        if (bl && !this.isOnGround() && !this.hasVehicle()) {
+        if (bl && !accessor.callIsOnGround() && !accessor.callHasVehicle()) {
             return FallFlyingLibInternals.isFallFlyingAllowed((LivingEntity) (Object) this) || value;
         }
         return value;
