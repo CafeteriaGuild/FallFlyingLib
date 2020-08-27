@@ -22,8 +22,8 @@ repositories {
 }
 
 dependencies {
-    modImplementation "net.adriantodt.fabricmc:FallFlyingLib:${ffl_version}"
-    include "net.adriantodt.fabricmc:FallFlyingLib:${ffl_version}"
+	modImplementation "net.adriantodt.fabricmc:fallflyinglib:${project.ffl_version}"
+	include "net.adriantodt.fabricmc:fallflyinglib:${project.ffl_version}"
 }
 ```
 
