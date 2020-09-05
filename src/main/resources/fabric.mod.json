@@ -26,5 +26,8 @@
     },
     "custom": {
         "modmenu:api": true
+    },
+    "breaks": {
+        "elytra_bounce": "*"
     }
 }
