@@ -16,7 +16,7 @@ java {
 
 version = project.property("mod_version").toString()
 group = project.property("maven_group").toString()
-base { archivesBaseName = project.property("archives_base_name").toString() }
+base { archivesBaseName = property("archives_base_name").toString() }
 
 dependencies {
     //to change the versions see the gradle.properties file

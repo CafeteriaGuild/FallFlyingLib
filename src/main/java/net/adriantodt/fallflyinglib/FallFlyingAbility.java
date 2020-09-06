@@ -20,8 +20,11 @@ public interface FallFlyingAbility {
      *
      * @return true if the Elytra should not be shown.
      */
+    @Deprecated
     @Environment(EnvType.CLIENT)
-    boolean shouldHideCape();
+    default boolean shouldHideCape() {
+        return false;
+    }
 
     /**
      * Deprecated, replaced by {@link FallFlyingAbility#shouldHideCape()}.

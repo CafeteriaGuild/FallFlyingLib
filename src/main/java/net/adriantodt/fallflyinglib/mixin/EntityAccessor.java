@@ -10,6 +10,9 @@ public interface EntityAccessor {
     boolean callGetFlag(int index);
 
     @Invoker
+    void callSetFlag(int index, boolean value);
+
+    @Invoker
     boolean callHasVehicle();
 
     @Invoker

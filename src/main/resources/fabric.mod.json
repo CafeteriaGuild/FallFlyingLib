@@ -15,6 +15,9 @@
     "icon": "assets/fallflyinglib/icon.png",
     "environment": "*",
     "entrypoints": {
+        "main": [
+            "net.adriantodt.fallflyinglib.impl.FallFlyingLibInternals"
+        ]
     },
     "mixins": [
         "fallflyinglib.mixins.json"
