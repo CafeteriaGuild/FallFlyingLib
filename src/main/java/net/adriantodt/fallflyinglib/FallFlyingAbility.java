@@ -12,6 +12,7 @@ import net.fabricmc.api.Environment;
 public interface FallFlyingAbility {
     /**
      * Allows the player to start fall flying.
+     *
      * @return true if the player has fall flying capabilities.
      */
     boolean allowFallFlying();
