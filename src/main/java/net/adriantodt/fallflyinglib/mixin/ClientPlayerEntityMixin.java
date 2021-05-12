@@ -1,6 +1,5 @@
 package net.adriantodt.fallflyinglib.mixin;
 
-import net.adriantodt.fallflyinglib.impl.FallFlyingLibInternals;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -30,7 +29,7 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntityMixin {
     )
     public void patchClientControls(CallbackInfo info) {
         ClientPlayerEntity thisObj = (ClientPlayerEntity) (Object) this;
-        if (FallFlyingLibInternals.isFallFlyingAllowed(thisObj) && this.checkFallFlying()) {
+        if (this.checkFallFlying()) {
             this.networkHandler.sendPacket(new ClientCommandC2SPacket(thisObj, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
         }
     }

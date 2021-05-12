@@ -8,6 +8,7 @@ import net.fabricmc.api.Environment;
  *
  * <p> Additionally, it adds an clientside endpoint to hide the Minecraft's Elytra.
  */
+@Deprecated
 public interface FallFlyingAbility {
     /**
      * Allows the player to start fall flying.
@@ -17,10 +18,11 @@ public interface FallFlyingAbility {
 
     /**
      * Hides the cape, if the player is wearing one.
+     * <p>
+     * Deprecated, use VanillaVanity.
      *
      * @return true if the Elytra should not be shown.
      */
-    @Deprecated
     @Environment(EnvType.CLIENT)
     default boolean shouldHideCape() {
         return false;
@@ -31,9 +33,8 @@ public interface FallFlyingAbility {
      *
      * @return by default, never returns.
      */
-    @Deprecated
     @Environment(EnvType.CLIENT)
     default boolean shouldHideElytra() {
-        throw new UnsupportedOperationException();
+        return false;
     }
 }

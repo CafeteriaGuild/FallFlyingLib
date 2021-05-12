@@ -1,6 +1,6 @@
 package net.adriantodt.fallflyinglib.mixin;
 
-import net.adriantodt.fallflyinglib.impl.FallFlyingLibInternals;
+import net.adriantodt.fallflyinglib.impl.FallFlyingPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -9,7 +9,19 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin {
+public abstract class PlayerEntityMixin extends LivingEntityMixin implements FallFlyingPlayerEntity {
+    protected boolean fallflyinglib$ability;
+
+    @Override
+    public boolean isFallFlyingAbilityEnabled() {
+        return this.fallflyinglib$ability;
+    }
+
+    @Override
+    public void setFallFlyingAbilityEnabled(boolean enabled) {
+        this.fallflyinglib$ability = enabled;
+    }
+
     @Shadow
     public abstract boolean checkFallFlying();
 
@@ -17,15 +29,12 @@ public abstract class PlayerEntityMixin {
     public abstract void startFallFlying();
 
     @Inject(
-        at = @At(
-            value = "INVOKE_ASSIGN",
-            target = "Lnet/minecraft/entity/player/PlayerEntity;getEquippedStack(Lnet/minecraft/entity/EquipmentSlot;)Lnet/minecraft/item/ItemStack;"
-        ),
+        at = @At(value = "HEAD"),
         method = "checkFallFlying",
         cancellable = true
     )
     public void patchCheckFallFlying(CallbackInfoReturnable<Boolean> info) {
-        if (FallFlyingLibInternals.isFallFlyingAllowed((PlayerEntity) (Object) this)) {
+        if (this.fallflyinglib$pipeline.checkConditions() && this.fallflyinglib$pipeline.canFallFly()) {
             this.startFallFlying();
             info.setReturnValue(true);
         }
