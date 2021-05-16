@@ -1,4 +1,3 @@
-import com.jfrog.bintray.gradle.BintrayExtension.PackageConfig
 import net.fabricmc.loom.task.RemapJarTask
 import net.fabricmc.loom.task.RemapSourcesJarTask
 import java.text.MessageFormat.format as messageFormat
@@ -6,7 +5,6 @@ import java.text.MessageFormat.format as messageFormat
 plugins {
     id("fabric-loom") version "0.4-SNAPSHOT"
     id("maven-publish")
-    id("com.jfrog.bintray") version "1.8.5"
 }
 
 java {
@@ -116,21 +114,4 @@ tasks.create("printInfo") {
             )
         )
     }
-}
-
-fun findProperty(s: String) = project.findProperty(s) as String?
-bintray {
-    user = findProperty("bintrayUsername")
-    key = findProperty("bintrayApiKey")
-    publish = true
-    setPublications("mavenJava")
-    pkg(delegateClosureOf<PackageConfig> {
-        repo = "maven"
-        name = findProperty("archives_base_name")
-        setLicenses("MIT")
-        vcsUrl = "https://github.com/adriantodt/FallFlyingLib.git"
-    })
-}
-tasks.bintrayUpload {
-    dependsOn("build", "publishToMavenLocal")
 }

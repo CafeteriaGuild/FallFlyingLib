@@ -1,13 +1,16 @@
 # FallFlyingLib
 
-[![](https://jitpack.io/v/adriantodt/FallFlyingLib.svg)](https://jitpack.io/#adriantodt/FallFlyingLib) [![Curseforge](http://cf.way2muchnoise.eu/title/fallflyinglib.svg)](https://www.curseforge.com/minecraft/mc-mods/fallflyinglib) 
+[![](https://jitpack.io/v/adriantodt/FallFlyingLib.svg)](https://jitpack.io/#adriantodt/FallFlyingLib) [![Curseforge](http://cf.way2muchnoise.eu/title/fallflyinglib.svg)](https://www.curseforge.com/minecraft/mc-mods/fallflyinglib)
 
 A lightweight library to provide compatibility between mods that implement Elytra alternatives.
 
-Bad Mixins and Callbacks might make a Elytra alternative stop working. This library exists so that all modifications
-can be made from a single place.
+Bad Mixins and Callbacks might make a Elytra alternative stop working. This library exists so that all modifications can
+be made from a single place.
 
-This library takes inspiration in PlayerAbilityLib.
+This library ~~takes inspiration~~ is implemented using
+the [PlayerAbilityLib](https://github.com/Ladysnake/PlayerAbilityLib) API.
+
+Use `FallFlyingLib.ABILITY` the same way as you would for creative flight!
 
 ## Adding FFL to your project
 
@@ -15,10 +18,7 @@ You can add the library by inserting the following in your `build.gradle` :
 
 ```gradle
 repositories {
-    maven {
-        name = "AdrianTodt's Maven"
-        url = "https://dl.bintray.com/adriantodt/maven"
-    }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -31,15 +31,17 @@ You can then add the library version to your `gradle.properties`file:
 
 ```properties
 # FallFlyingLib
-ffl_version = 1.x.y
+ffl_version=2.x.y
 ```
 
-You can find the current version of FFL in the [releases](https://github.com/adriantodt/FallFlyingLib/releases) tab of the repository on Github.
+You can find the current version of FFL in the [releases](https://github.com/adriantodt/FallFlyingLib/releases) tab of
+the repository on Github.
 
-## Using FFL
+## "XYZ mod is incompatible with FFL"
 
-Use the method `FallFlyingLib.registerAccessor` to register a path to access a `FallFlyingAbility` instance.
-Note that FallFlyingLib only uses it, and it is up to the developer to implement how and if this interface will be stored.
-(Developer Note: You should take a look at [Cardinal Components API](https://github.com/OnyxStudios/Cardinal-Components-API).)
+Any mods that mixin into the parts of the code responsible for Elytra Flight will NOT work.
 
-The `FallFlyingAbility` will be then pooled if flight is allowed.
+Ask the developer to use FallFlyingLib instead. It's really easy to implement things that do Elytra Flight, and there's
+also events implemented by FallFlyingLib that mods can listen.
+
+And if the latter isn't enough, please feel free to contribute with the necessary events your mod needs!
