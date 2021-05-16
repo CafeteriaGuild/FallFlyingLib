@@ -59,7 +59,8 @@ public class FallFlyingPipeline {
         // This method is called to check if we can start or keep fall flying.
         // It's implementation comes from PlayerEntity#checkFallFlying.
 
-        return !accessor.callIsOnGround()
+        return !data.ffl_getFallFlyingLock()
+            && !accessor.callIsOnGround()
             && !accessor.callHasVehicle()
             && !player.hasStatusEffect(StatusEffects.LEVITATION);
     }
@@ -67,7 +68,7 @@ public class FallFlyingPipeline {
     public boolean canFallFly() {
         // This method is called to check only if we can keep fall flying. Basically, the Elytra check.
 
-        return data.isFallFlyingAbilityEnabled(); // Don't mixin it unless strictly necessary.
+        return data.ffl_isFallFlyingAbilityEnabled(); // Don't mixin it unless strictly necessary.
     }
 
     public boolean stopFallFly(Reason reason) {

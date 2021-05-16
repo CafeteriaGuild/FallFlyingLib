@@ -33,14 +33,10 @@ public class VanillaSupport {
             return;
         }
         ItemStack itemStack = player.getEquippedStack(EquipmentSlot.CHEST);
-        boolean enabled = itemStack.getItem() == Items.ELYTRA && ElytraItem.isUsable(itemStack);
-
-        if (enabled != SOURCE.grants(player, ABILITY)) {
-            if (enabled) {
-                SOURCE.grantTo(player, ABILITY);
-            } else {
-                SOURCE.revokeFrom(player, ABILITY);
-            }
+        if (itemStack.getItem() == Items.ELYTRA && ElytraItem.isUsable(itemStack)) {
+            Pal.grantAbility(player, ABILITY, SOURCE);
+        } else {
+            Pal.revokeAbility(player, ABILITY, SOURCE);
         }
     }
 

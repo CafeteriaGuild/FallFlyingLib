@@ -22,7 +22,7 @@ public class FallFlyingAbilityTracker extends SimpleAbilityTracker {
 
     @Override
     protected void updateState(boolean enabled) {
-        ((FallFlyingPlayerEntity) player).setFallFlyingAbilityEnabled(enabled);
+        ((FallFlyingPlayerEntity) player).ffl_setFallFlyingAbilityEnabled(enabled);
         super.updateState(enabled);
     }
 
@@ -41,7 +41,7 @@ public class FallFlyingAbilityTracker extends SimpleAbilityTracker {
 
         for (ServerPlayerEntity player : all) {
             if (player.networkHandler != null) {
-                ServerPlayNetworking.send(player, FFLCommon.FFL_PACKET, buf);
+                ServerPlayNetworking.send(player, FFLCommon.FFL_UPDATE_PACKET, buf);
             }
         }
     }

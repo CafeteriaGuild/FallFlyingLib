@@ -1,7 +1,13 @@
 package net.adriantodt.fallflyinglib.impl;
 
 public interface FallFlyingPlayerEntity {
-    boolean isFallFlyingAbilityEnabled();
+    boolean ffl_isFallFlyingAbilityEnabled();
 
-    void setFallFlyingAbilityEnabled(boolean enabled);
+    void ffl_setFallFlyingAbilityEnabled(boolean enabled);
+
+    void ffl_toggleFallFlyingLock();
+
+    boolean ffl_getFallFlyingLock();
+
+    void ffl_setFallFlyingLock(boolean value);
 }
