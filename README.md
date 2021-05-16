@@ -22,8 +22,8 @@ repositories {
 }
 
 dependencies {
-	modImplementation "net.adriantodt.fabricmc:fallflyinglib:${project.ffl_version}"
-	include "net.adriantodt.fabricmc:fallflyinglib:${project.ffl_version}"
+	modImplementation com.github.CafeteriaGuild:FallFlyingLib:${project.ffl_version}"
+	include "com.github.CafeteriaGuild:FallFlyingLib:${project.ffl_version}"
 }
 ```
 
@@ -36,6 +36,8 @@ ffl_version=2.x.y
 
 You can find the current version of FFL in the [releases](https://github.com/adriantodt/FallFlyingLib/releases) tab of
 the repository on Github.
+
+Be sure to also add PlayerAbilityLib!
 
 ## "XYZ mod is incompatible with FFL"
 
