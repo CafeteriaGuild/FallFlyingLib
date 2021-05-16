@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-	modImplementation com.github.CafeteriaGuild:FallFlyingLib:${project.ffl_version}"
+	modImplementation "com.github.CafeteriaGuild:FallFlyingLib:${project.ffl_version}"
 	include "com.github.CafeteriaGuild:FallFlyingLib:${project.ffl_version}"
 }
 ```
