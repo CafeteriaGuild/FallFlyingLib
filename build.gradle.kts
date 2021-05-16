@@ -18,6 +18,17 @@ version = project.property("mod_version").toString()
 group = project.property("maven_group").toString()
 base { archivesBaseName = property("archives_base_name").toString() }
 
+repositories {
+    maven {
+        name = "Ladysnake Mods"
+        url = uri("https://ladysnake.jfrog.io/artifactory/mods")
+        content {
+            includeGroup("io.github.ladysnake")
+            includeGroupByRegex("io\\.github\\.onyxstudios.*")
+        }
+    }
+}
+
 dependencies {
     //to change the versions see the gradle.properties file
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
@@ -26,6 +37,9 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
+
+    modImplementation("io.github.ladysnake:PlayerAbilityLib:1.2.1")
+    include("io.github.ladysnake:PlayerAbilityLib:1.2.1")
 }
 
 tasks.processResources {
@@ -89,16 +103,18 @@ publishing {
 
 tasks.create("printInfo") {
     doLast {
-        println(messageFormat(
-            """
+        println(
+            messageFormat(
+                """
             ----- BEGIN -----
             ### Release Info
             This release was built for Minecraft **{0}**, with Fabric Loader **{1}** and Fabric API **{2}**
             ------ END ------""".trimIndent(),
-            project.property("minecraft_version"),
-            project.property("loader_version"),
-            project.property("fabric_version")
-        ))
+                project.property("minecraft_version"),
+                project.property("loader_version"),
+                project.property("fabric_version")
+            )
+        )
     }
 }
 

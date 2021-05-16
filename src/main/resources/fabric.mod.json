@@ -16,7 +16,10 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "net.adriantodt.fallflyinglib.impl.FallFlyingLibInternals"
+            "net.adriantodt.fallflyinglib.impl.mod.FFLCommon"
+        ],
+        "client": [
+            "net.adriantodt.fallflyinglib.impl.mod.FFLClient"
         ]
     },
     "mixins": [

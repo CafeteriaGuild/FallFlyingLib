@@ -1,18 +1,18 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "net.adriantodt.fallflyinglib.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "mixins": [
-      "EntityAccessor",
-      "LivingEntityMixin",
-      "PlayerEntityMixin"
-  ],
-  "client": [
-    "CapeFeatureRendererMixin",
-    "ClientPlayerEntityMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+    "required": true,
+    "minVersion": "0.8",
+    "package": "net.adriantodt.fallflyinglib.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "mixins": [
+        "LivingEntityAccessor",
+        "LivingEntityMixin",
+        "PlayerEntityMixin",
+        "ServerPlayerEntityMixin"
+    ],
+    "client": [
+        "ClientPlayerEntityMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
 }
