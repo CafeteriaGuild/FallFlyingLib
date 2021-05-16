@@ -8,8 +8,8 @@
         "AdrianTodt"
     ],
     "contact": {
-        "sources": "https://github.com/adriantodt/FallFlyingLib",
-        "issues": "https://github.com/adriantodt/FallFlyingLib/issues"
+        "sources": "https://github.com/CafeteriaGuild/FallFlyingLib",
+        "issues": "https://github.com/CafeteriaGuild/FallFlyingLib/issues"
     },
     "license": "MIT",
     "icon": "assets/fallflyinglib/icon.png",
