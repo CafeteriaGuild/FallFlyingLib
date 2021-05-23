@@ -95,6 +95,17 @@ publishing {
     }
     // select the repositories you want to publish to
     repositories {
+        maven {
+            url = uri("https://maven.cafeteria.dev/releases")
+
+            credentials {
+                username = "${project.property("mcdUsername")}"
+                password = "${project.property("mcdPassword")}"
+            }
+            authentication {
+                create("basic", BasicAuthentication::class.java)
+            }
+        }
         mavenLocal()
     }
 }

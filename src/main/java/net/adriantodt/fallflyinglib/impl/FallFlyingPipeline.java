@@ -39,7 +39,7 @@ public class FallFlyingPipeline {
 
         // Check conditions, then call the appropriate method.
         // If the method returns false, player is not fall flying anymore.
-        boolean flag = (checkConditions() || stopFallFly(Reason.CONDITIONS_NOT_MET)) && (canFallFly() || stopFallFly(Reason.NO_SOURCE));
+        boolean flag = canFallFly();
 
         // Generate a PostTick event if we're fall flying.
         // It is used to implement Vanilla support.
@@ -53,9 +53,14 @@ public class FallFlyingPipeline {
         }
     }
 
+    public boolean canFallFly() {
+        return (checkFlightConditions() || stopFallFly(Reason.CONDITIONS_NOT_MET))
+            && (checkFallFlyAbility() || stopFallFly(Reason.NO_SOURCE));
+    }
+
     // Exploitable methods
 
-    public boolean checkConditions() {
+    public boolean checkFlightConditions() {
         // This method is called to check if we can start or keep fall flying.
         // It's implementation comes from PlayerEntity#checkFallFlying.
 
@@ -65,7 +70,7 @@ public class FallFlyingPipeline {
             && !player.hasStatusEffect(StatusEffects.LEVITATION);
     }
 
-    public boolean canFallFly() {
+    public boolean checkFallFlyAbility() {
         // This method is called to check only if we can keep fall flying. Basically, the Elytra check.
 
         return data.ffl_isFallFlyingAbilityEnabled(); // Don't mixin it unless strictly necessary.

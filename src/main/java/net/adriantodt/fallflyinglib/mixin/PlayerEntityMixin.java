@@ -52,7 +52,7 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin implements Fal
         cancellable = true
     )
     public void ffl_patchCheckFallFlying(CallbackInfoReturnable<Boolean> info) {
-        if (!fallflyinglib$lock && this.fallflyinglib$pipeline.checkConditions() && this.fallflyinglib$pipeline.canFallFly()) {
+        if (!fallflyinglib$lock && this.fallflyinglib$pipeline.canFallFly()) {
             this.startFallFlying();
             info.setReturnValue(true);
         } else {

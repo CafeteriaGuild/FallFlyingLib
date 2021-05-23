@@ -18,12 +18,25 @@ You can add the library by inserting the following in your `build.gradle` :
 
 ```gradle
 repositories {
-    maven { url 'https://jitpack.io' }
+    maven {
+        url = 'https://maven.cafeteria.dev'
+        content {
+            includeGroup 'net.adriantodt.fabricmc'
+        }
+    }
+    maven {
+        name = 'Ladysnake Mods'
+        url = 'https://ladysnake.jfrog.io/artifactory/mods'
+        content {
+            includeGroup 'io.github.ladysnake'
+            includeGroupByRegex 'io\\.github\\.onyxstudios.*'
+        }
+    }
 }
 
 dependencies {
-	modImplementation com.github.CafeteriaGuild:FallFlyingLib:${project.ffl_version}"
-	include "com.github.CafeteriaGuild:FallFlyingLib:${project.ffl_version}"
+    modImplementation "net.adriantodt.fabricmc:fallflyinglib:${project.ffl_version}"
+    include "net.adriantodt.fabricmc:fallflyinglib:${project.ffl_version}"
 }
 ```
 
