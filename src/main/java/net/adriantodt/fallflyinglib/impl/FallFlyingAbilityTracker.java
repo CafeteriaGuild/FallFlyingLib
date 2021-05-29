@@ -10,12 +10,16 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FallFlyingAbilityTracker extends SimpleAbilityTracker {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     public FallFlyingAbilityTracker(PlayerAbility ability, PlayerEntity player) {
         super(ability, player);
     }
@@ -42,6 +46,8 @@ public class FallFlyingAbilityTracker extends SimpleAbilityTracker {
         for (ServerPlayerEntity player : all) {
             if (player.networkHandler != null) {
                 ServerPlayNetworking.send(player, FFLCommon.FFL_UPDATE_PACKET, buf);
+            } else {
+                LOGGER.warn("Player {} could not be synced because server networking isn't set up yet.", player);
             }
         }
     }
@@ -49,7 +55,7 @@ public class FallFlyingAbilityTracker extends SimpleAbilityTracker {
     @Override
     public String toString() {
         return ability.getId() + " {" +
-            ", sources=" + super.abilitySources.stream().map(AbilitySource::getId).collect(Collectors.toList()) +
+            "sources=" + super.abilitySources.stream().map(AbilitySource::getId).collect(Collectors.toList()) +
             '}';
     }
 }

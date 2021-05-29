@@ -8,17 +8,21 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public class FFLClient implements ClientModInitializer {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private static final KeyBinding kbToggle = new KeyBinding(
         "key.fallflyinglib.toggle",
         InputUtil.Type.KEYSYM,
@@ -54,15 +58,32 @@ public class FFLClient implements ClientModInitializer {
             ClientWorld world = c.world;
             if (world != null) {
                 PlayerEntity player = world.getPlayerByUuid(uuid);
-                if (player instanceof FallFlyingPlayerEntity) {
+                if (player == null) {
+                    LOGGER.warn("Could not sync player {} because the player is null.", uuid);
+                } else if (player instanceof FallFlyingPlayerEntity) {
                     ((FallFlyingPlayerEntity) player).ffl_setFallFlyingAbilityEnabled(enabled);
+                } else {
+                    LOGGER.warn("Player {} could not be synced because the mixin wasn't loaded.", player);
                 }
+            } else {
+                LOGGER.warn("Could not sync player {} because the world wasn't set.", uuid);
             }
         });
     }
 
     private void handleLockPacket(MinecraftClient c, ClientPlayNetworkHandler h, PacketByteBuf p, PacketSender s) {
         boolean value = p.readBoolean();
-        c.execute(() -> ((FallFlyingPlayerEntity) Objects.requireNonNull(c.player)).ffl_setFallFlyingLock(value));
+        c.execute(() -> {
+            ClientPlayerEntity player = c.player;
+            if (player != null) {
+                if (player instanceof FallFlyingPlayerEntity) {
+                    ((FallFlyingPlayerEntity) player).ffl_setFallFlyingLock(value);
+                } else {
+                    LOGGER.warn("Player {} could not be synced because the mixin wasn't loaded.", player);
+                }
+            } else {
+                LOGGER.warn("Could not sync player's lock settings because the player wasn't set.");
+            }
+        });
     }
 }
