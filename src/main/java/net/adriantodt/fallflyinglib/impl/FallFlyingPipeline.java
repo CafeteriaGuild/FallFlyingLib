@@ -11,7 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FallFlyingPipeline {
-    private static final int FALL_FLYING_FLAG = 7;
+    private static final int FALL_FLYING_FLAG_INDEX = 7;
 
     private final PlayerEntity player;
     private final EntityAccessor accessor;
@@ -87,11 +87,11 @@ public class FallFlyingPipeline {
     // Flag getting and setting
 
     public boolean getFallFlyingFlag() {
-        return accessor.callGetFlag(FALL_FLYING_FLAG);
+        return accessor.callGetFlag(FALL_FLYING_FLAG_INDEX);
     }
 
     public void setFallFlyingFlag(boolean value) {
-        accessor.callSetFlag(FALL_FLYING_FLAG, value);
+        accessor.callSetFlag(FALL_FLYING_FLAG_INDEX, value);
     }
 
 }
