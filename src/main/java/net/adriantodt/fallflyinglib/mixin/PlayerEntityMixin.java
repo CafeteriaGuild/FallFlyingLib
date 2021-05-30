@@ -1,15 +1,10 @@
 package net.adriantodt.fallflyinglib.mixin;
 
 import net.adriantodt.fallflyinglib.impl.FallFlyingPlayerEntity;
-import net.adriantodt.fallflyinglib.impl.mod.FFLCommon;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -76,17 +71,7 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin implements Fal
             return;
         }
 
-        boolean value = !this.fallflyinglib$lock;
-        this.fallflyinglib$lock = value;
-
-        if (!this.world.isClient) {
-            return;
-        }
-
-        this.sendMessage(new TranslatableText("text.fallflyinglib.toggle_" + !value), true);
-        PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeBoolean(value);
-        ClientPlayNetworking.send(FFLCommon.FFL_LOCK_PACKET, buf);
+        this.fallflyinglib$lock = !this.fallflyinglib$lock;
     }
 
     @Override

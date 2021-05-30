@@ -4,6 +4,7 @@ import io.github.ladysnake.pal.AbilitySource;
 import io.github.ladysnake.pal.Pal;
 import net.adriantodt.fallflyinglib.event.FallFlyingCallback;
 import net.adriantodt.fallflyinglib.event.PreFallFlyingCallback;
+import net.adriantodt.fallflyinglib.mixin.LivingEntityAccessor;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ElytraItem;
@@ -22,10 +23,10 @@ public class VanillaSupport {
         FallFlyingCallback.EVENT.register(VanillaSupport::postTick);
     }
 
-    private static boolean shouldDamage(net.minecraft.entity.player.PlayerEntity player, ItemStack itemStack) {
+    private static boolean shouldDamage(PlayerEntity player, ItemStack itemStack) {
         return itemStack.getItem() == Items.ELYTRA
             && ElytraItem.isUsable(itemStack)
-            && (player.getRoll() + 1) % 20 == 0;
+            && (((LivingEntityAccessor) player).getRoll() + 1) % 20 == 0;
     }
 
     private static void preTick(PlayerEntity player) {

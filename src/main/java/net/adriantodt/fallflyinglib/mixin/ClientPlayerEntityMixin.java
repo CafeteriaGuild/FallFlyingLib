@@ -1,12 +1,17 @@
 package net.adriantodt.fallflyinglib.mixin;
 
+import net.adriantodt.fallflyinglib.impl.mod.FFLCommon;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.network.Packet;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -51,5 +56,24 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntityMixin {
     )
     public void ffl_disableVanilla(ClientPlayNetworkHandler clientPlayNetworkHandler, Packet<?> packet) {
         // NOOP
+    }
+
+    @Override
+    public void ffl_toggleFallFlyingLock() {
+        if (!fallflyinglib$ability) {
+            return;
+        }
+
+        boolean value = !this.fallflyinglib$lock;
+        this.fallflyinglib$lock = value;
+
+        if (!this.world.isClient) {
+            return;
+        }
+
+        this.sendMessage(new TranslatableText("text.fallflyinglib.toggle_" + !value), true);
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeBoolean(value);
+        ClientPlayNetworking.send(FFLCommon.FFL_LOCK_PACKET, buf);
     }
 }

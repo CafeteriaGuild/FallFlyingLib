@@ -4,7 +4,7 @@ import net.adriantodt.fallflyinglib.event.FallFlyingCallback;
 import net.adriantodt.fallflyinglib.event.PreFallFlyingCallback;
 import net.adriantodt.fallflyinglib.event.StopFallFlyingCallback;
 import net.adriantodt.fallflyinglib.event.StopFallFlyingCallback.Reason;
-import net.adriantodt.fallflyinglib.mixin.LivingEntityAccessor;
+import net.adriantodt.fallflyinglib.mixin.EntityAccessor;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -14,12 +14,12 @@ public class FallFlyingPipeline {
     private static final int FALL_FLYING_FLAG = 7;
 
     private final PlayerEntity player;
-    private final LivingEntityAccessor accessor;
+    private final EntityAccessor accessor;
     private final FallFlyingPlayerEntity data;
 
     public FallFlyingPipeline(PlayerEntity player) {
         this.player = player;
-        this.accessor = (LivingEntityAccessor) player;
+        this.accessor = (EntityAccessor) player;
         this.data = ((FallFlyingPlayerEntity) player);
     }
 

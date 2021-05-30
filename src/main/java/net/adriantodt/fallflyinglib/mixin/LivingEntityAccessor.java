@@ -1,20 +1,11 @@
 package net.adriantodt.fallflyinglib.mixin;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(Entity.class)
+@Mixin(LivingEntity.class)
 public interface LivingEntityAccessor {
-    @Invoker
-    boolean callGetFlag(int index);
-
-    @Invoker
-    void callSetFlag(int index, boolean value);
-
-    @Invoker
-    boolean callHasVehicle();
-
-    @Invoker
-    boolean callIsOnGround();
+    @Accessor
+    int getRoll();
 }
