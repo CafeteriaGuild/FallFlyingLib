@@ -3,7 +3,7 @@ package net.adriantodt.fallflyinglib.mixin;
 import net.adriantodt.fallflyinglib.impl.FallFlyingPlayerEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -55,13 +55,13 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin implements Fal
         }
     }
 
-    @Inject(method = "writeCustomDataToTag", at = @At("RETURN"))
-    private void writeCustomDataToTag(CompoundTag tag, CallbackInfo ci) {
+    @Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
+    private void writeCustomDataToNbt(NbtCompound tag, CallbackInfo ci) {
         tag.putBoolean("fallflyinglib$lock", fallflyinglib$lock);
     }
 
-    @Inject(method = "readCustomDataFromTag", at = @At(value = "RETURN"))
-    private void readCustomDataFromTag(CompoundTag tag, CallbackInfo info) {
+    @Inject(method = "readCustomDataFromNbt", at = @At(value = "RETURN"))
+    private void readCustomDataFromNbt(NbtCompound tag, CallbackInfo info) {
         fallflyinglib$lock = tag.getBoolean("fallflyinglib$lock");
     }
 

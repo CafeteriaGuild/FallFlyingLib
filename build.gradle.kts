@@ -3,13 +3,13 @@ import net.fabricmc.loom.task.RemapSourcesJarTask
 import java.text.MessageFormat.format as messageFormat
 
 plugins {
-    id("fabric-loom") version "0.4-SNAPSHOT"
+    id("fabric-loom") version "0.8-SNAPSHOT"
     id("maven-publish")
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
 }
 
 version = project.property("mod_version").toString()
@@ -36,19 +36,14 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
 
-    modImplementation("io.github.ladysnake:PlayerAbilityLib:1.2.1")
-    include("io.github.ladysnake:PlayerAbilityLib:1.2.1")
+    modImplementation("io.github.ladysnake:PlayerAbilityLib:1.3.0-nightly.1.17-pre1")
+    include("io.github.ladysnake:PlayerAbilityLib:1.3.0-nightly.1.17-pre1")
 }
 
 tasks.processResources {
     inputs.property("version", project.version)
-
-    from(sourceSets["main"].resources.srcDirs) {
-        include("fabric.mod.json")
+    filesMatching("fabric.mod.json") {
         expand("version" to project.version)
-    }
-    from(sourceSets["main"].resources.srcDirs) {
-        exclude("fabric.mod.json")
     }
 }
 
@@ -57,6 +52,7 @@ tasks.processResources {
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
+    //options.release = 16
 }
 
 
@@ -99,8 +95,8 @@ publishing {
             url = uri("https://maven.cafeteria.dev/releases")
 
             credentials {
-                username = "${project.property("mcdUsername")}"
-                password = "${project.property("mcdPassword")}"
+                //username = "${project.property("mcdUsername")}"
+                //password = "${project.property("mcdPassword")}"
             }
             authentication {
                 create("basic", BasicAuthentication::class.java)

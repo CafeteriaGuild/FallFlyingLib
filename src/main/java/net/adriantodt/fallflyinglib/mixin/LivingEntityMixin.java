@@ -13,19 +13,19 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
+
     protected FallFlyingPipeline fallflyinglib$pipeline;
+
+    @Shadow protected abstract void tickFallFlying();
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
 
-    @Shadow
-    protected abstract void initAi();
-
     @Redirect(
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/entity/LivingEntity;initAi()V"
+            target = "Lnet/minecraft/entity/LivingEntity;tickFallFlying()V"
         ), method = "tickMovement"
     )
     public void fallflyinglib_flightPipeline(LivingEntity thisObj) {
@@ -35,7 +35,7 @@ public abstract class LivingEntityMixin extends Entity {
             }
             fallflyinglib$pipeline.tick();
         } else {
-            this.initAi();
+            tickFallFlying();
         }
     }
 }
