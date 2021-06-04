@@ -1,5 +1,10 @@
 package net.adriantodt.fallflyinglib.impl;
 
+/**
+ * Interface used for FallFlyingAbilityTracker to control the player.
+ * <p>
+ * Don't use those methods directly. Use the PAL API instead.
+ */
 public interface FallFlyingPlayerEntity {
     boolean ffl_isFallFlyingAbilityEnabled();
 

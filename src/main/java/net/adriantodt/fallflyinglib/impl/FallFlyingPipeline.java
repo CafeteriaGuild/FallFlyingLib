@@ -20,7 +20,7 @@ public class FallFlyingPipeline {
     public FallFlyingPipeline(PlayerEntity player) {
         this.player = player;
         this.accessor = (EntityAccessor) player;
-        this.data = ((FallFlyingPlayerEntity) player);
+        this.data = (FallFlyingPlayerEntity) player;
     }
 
     // @Redirect main method
@@ -54,6 +54,7 @@ public class FallFlyingPipeline {
     }
 
     public boolean canFallFly() {
+        // Don't mixin it unless strictly necessary.
         return (checkFlightConditions() || stopFallFly(Reason.CONDITIONS_NOT_MET))
             && (checkFallFlyAbility() || stopFallFly(Reason.NO_SOURCE));
     }
