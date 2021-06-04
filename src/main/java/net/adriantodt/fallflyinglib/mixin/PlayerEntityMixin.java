@@ -1,5 +1,6 @@
 package net.adriantodt.fallflyinglib.mixin;
 
+import net.adriantodt.fallflyinglib.impl.FallFlyingPipeline;
 import net.adriantodt.fallflyinglib.impl.FallFlyingPlayerEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -47,6 +48,9 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin implements Fal
         cancellable = true
     )
     public void ffl_patchCheckFallFlying(CallbackInfoReturnable<Boolean> info) {
+        if (fallflyinglib$pipeline == null) {
+            fallflyinglib$pipeline = new FallFlyingPipeline((PlayerEntity) (Object) this);
+        }
         if (!fallflyinglib$lock && this.fallflyinglib$pipeline.canFallFly()) {
             this.startFallFlying();
             info.setReturnValue(true);
