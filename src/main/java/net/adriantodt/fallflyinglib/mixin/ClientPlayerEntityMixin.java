@@ -1,5 +1,6 @@
 package net.adriantodt.fallflyinglib.mixin;
 
+import net.adriantodt.fallflyinglib.event.LockChangeCallback;
 import net.adriantodt.fallflyinglib.impl.mod.FFLCommon;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -70,7 +71,7 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntityMixin {
         if (!this.world.isClient) {
             return;
         }
-
+        LockChangeCallback.EVENT.invoker().interact(this.fallflyinglib$lock);
         this.sendMessage(new TranslatableText("text.fallflyinglib.toggle_" + !value), true);
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBoolean(value);
