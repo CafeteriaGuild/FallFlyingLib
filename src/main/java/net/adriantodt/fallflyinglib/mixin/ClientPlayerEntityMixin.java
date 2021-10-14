@@ -66,15 +66,22 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntityMixin {
         }
 
         boolean value = !this.fallflyinglib$lock;
-        this.fallflyinglib$lock = value;
+        ffl_setFallFlyingLock(value);
+        
+        this.sendMessage(new TranslatableText("text.fallflyinglib.toggle_" + !value), true);
+    }
 
+    @Override
+    public void ffl_setFallFlyingLock(boolean value){
+        this.fallflyinglib$lock = value;
+        LockChangeCallback.EVENT.invoker().interact(this.fallflyinglib$lock);
         if (!this.world.isClient) {
             return;
         }
-        LockChangeCallback.EVENT.invoker().interact(this.fallflyinglib$lock);
-        this.sendMessage(new TranslatableText("text.fallflyinglib.toggle_" + !value), true);
+
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBoolean(value);
         ClientPlayNetworking.send(FFLCommon.FFL_LOCK_PACKET, buf);
+
     }
 }
