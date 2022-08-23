@@ -1,3 +1,5 @@
+# FallFlyingLib was superseded by the official Elytra events available at Fabric Entity API.
+
 # FallFlyingLib
 
 [![](https://jitpack.io/v/adriantodt/FallFlyingLib.svg)](https://jitpack.io/#adriantodt/FallFlyingLib) [![Curseforge](http://cf.way2muchnoise.eu/title/fallflyinglib.svg)](https://www.curseforge.com/minecraft/mc-mods/fallflyinglib)
